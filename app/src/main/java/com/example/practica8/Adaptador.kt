@@ -1,6 +1,5 @@
 package com.example.practica8
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +20,10 @@ class Adaptador (private var mainActivity: MainActivity)
         return ViewHolderContactos(layoutItem)
     }
 
-    override fun getItemCount(): Int  = ProvisionalDatos.listaContactos.size
+    override fun getItemCount(): Int  = ControlArchivos.listaContactos.size
 
     override fun onBindViewHolder(holder: ViewHolderContactos, position: Int) {
-        val contacto = ProvisionalDatos.listaContactos[position]
+        val contacto = ControlArchivos.listaContactos[position]
         holder.txtNombre.text = contacto.nombre
         holder.txtTelefono.text = contacto.telefono
         holder.itemView.setOnClickListener{
