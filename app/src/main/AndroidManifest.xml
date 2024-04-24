@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Practica8"
         tools:targetApi="31">
         <activity
+            android:name=".EditActivity"
+            android:exported="false" />
+        <activity
             android:name=".AgregarActivity"
             android:exported="false" />
         <activity

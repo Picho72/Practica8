@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class Adaptador : RecyclerView.Adapter<Adaptador.ViewHolderContactos>(){
+class Adaptador (private var mainActivity: MainActivity)
+    : RecyclerView.Adapter<Adaptador.ViewHolderContactos>(){
 
     //Parte interna
     class ViewHolderContactos(item: View): RecyclerView.ViewHolder(item){
@@ -26,5 +27,8 @@ class Adaptador : RecyclerView.Adapter<Adaptador.ViewHolderContactos>(){
         val contacto = ProvisionalDatos.listaContactos[position]
         holder.txtNombre.text = contacto.nombre
         holder.txtTelefono.text = contacto.telefono
+        holder.itemView.setOnClickListener{
+            mainActivity.clickItem(position)
+        }
     }
 }

@@ -30,12 +30,18 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.w("Contactos", "Hay ${ProvisionalDatos.listaContactos.size} contactos")
-        rcv.adapter = Adaptador()
+        rcv.adapter = Adaptador(this)
         rcv.layoutManager = LinearLayoutManager(this)
     }
 
     fun btnAgregar(v: View){
         val intent = Intent(this, AgregarActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun clickItem(position: Int){
+        val intent = Intent(this, EditActivity::class.java)
+        intent.putExtra("position", position)
         startActivity(intent)
     }
 }
