@@ -1,6 +1,8 @@
 package com.example.practica8
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -23,8 +25,17 @@ class AgregarActivity : AppCompatActivity() {
     fun guardar(v: View){
         val nombre = findViewById<EditText>(R.id.txtNombre)
         val telefono = findViewById<EditText>(R.id.txtTelefono)
-        val contacto = Contacto(nombre.text.toString(), telefono.text.toString())
-        ProvisionalDatos.listaContactos.add(contacto)
+        val contacto = Contacto(nombre.text.toString(), telefono.text.toString(), 0)
+
+        Log.v("PRUEBAS", "Se presiono GUARDAR")
+        val bd = openOrCreateDatabase("bd", MODE_PRIVATE, null)
+        val parametros = ContentValues()
+        parametros.put("nombre", contacto.nombre)
+        parametros.put("telefono", contacto.telefono)
+        bd.insert("Contactos", null, parametros)
+        bd.close()
+        //ProvisionalDatos.listaContactos.add(contacto)
+
         Toast.makeText(this, "Se guardo", Toast.LENGTH_LONG).show()
         finish()
     }

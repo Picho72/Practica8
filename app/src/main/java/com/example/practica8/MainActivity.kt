@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +30,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        ProvisionalDatos.listaContactos.clear()
+
+        val db = openOrCreateDatabase("bd", MODE_PRIVATE, null)
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "Contactos(id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "nombre TEXT NOT NULL, telefono TEXT NOT NULL);")
+        val cursor = db.rawQuery("SELECT * FROM Contactos", null)
+
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(0)
+            val nombre = cursor.getString(1)
+            val telefono = cursor.getString(2)
+            val contacto = Contacto(nombre, telefono, id)
+            ProvisionalDatos.listaContactos.add(contacto)
+        }
+
         Log.w("Contactos", "Hay ${ProvisionalDatos.listaContactos.size} contactos")
+
+        val gson = Gson()
+        val contenido = gson.toJson(ProvisionalDatos.listaContactos)
+        Log.v("PRUEBAS", contenido)
+
+        db.close()
+
         rcv.adapter = Adaptador(this)
         rcv.layoutManager = LinearLayoutManager(this)
     }

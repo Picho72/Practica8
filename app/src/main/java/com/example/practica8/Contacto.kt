@@ -1,3 +1,3 @@
 package com.example.practica8
 
-data class Contacto(val nombre: String, val telefono:String)
+data class Contacto(var nombre: String, var telefono:String, var id:Int)
