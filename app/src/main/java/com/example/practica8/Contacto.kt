@@ -1,3 +1,12 @@
-package com.example.practica8
+package com.example.practicaorm
 
-data class Contacto(val nombre: String, val telefono:String)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Contacto(
+    @PrimaryKey(autoGenerate = true) val id:Int,
+    @ColumnInfo() val nombre:String,
+    @ColumnInfo() val telefono:String
+)

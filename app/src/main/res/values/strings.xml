@@ -5,4 +5,5 @@
     <string name="agrega_nombre">Agregar nombre</string>
     <string name="agregar_telefono">Agregar Telefono</string>
     <string name="btn_agregar">GUARDAR</string>
+    <string name="btn_eliminar">ELIMINAR</string>
 </resources>

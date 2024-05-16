@@ -10,10 +10,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.example.practicaorm.AppDataBase
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var rcv:RecyclerView
+    lateinit var bd: AppDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +28,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         rcv = findViewById(R.id.rvContactos)
+        bd = Room.databaseBuilder(applicationContext, AppDataBase::class.java, "contactosbd")
+            .allowMainThreadQueries()
+            .build()
     }//onCreate
 
     override fun onResume() {
         super.onResume()
-        Log.w("Contactos", "Hay ${ProvisionalDatos.listaContactos.size} contactos")
-        rcv.adapter = Adaptador(this)
-        rcv.layoutManager = LinearLayoutManager(this)
+        actualizarRecyclerView()
     }
 
     fun btnAgregar(v: View){
@@ -44,4 +48,13 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("position", position)
         startActivity(intent)
     }
+    private fun actualizarRecyclerView() {
+        val contactos = bd.contactoDao().obtenerContactos()
+        Log.w("Contactos", "Hay ${contactos.size} contactos")
+        val adaptador = Adaptador(this)
+        adaptador.actualizarContactos(contactos)
+        rcv.adapter = adaptador
+        rcv.layoutManager = LinearLayoutManager(this)
+    }
+
 }
