@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".AgregarActivity">
 
+    <Button
+        android:id="@+id/btnEliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/btn_eliminar"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
